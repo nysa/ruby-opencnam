@@ -1,0 +1,7 @@
+*.gem
+*.rbc
+*.sw[a-p]
+.rvmrc
+Gemfile.lock
+Session.vim
+tmp
