@@ -40,23 +40,4 @@ describe Opencnam::Util do
       end
     end
   end
-
-  describe '.sanitize_protocol' do
-    context 'when given an unsupported protocol' do
-      it 'should raise ArgumentError' do
-        ['ftp', 'ftp://', 'git://'].each do |p|
-          expect { DummyExtender.sanitize_protocol(p) }.to(
-            raise_error ArgumentError)
-        end
-      end
-    end
-
-    context 'when given a supported protocol' do
-      it 'should return the protocol' do
-        Opencnam::Util::SUPPORTED_PROTOCOLS.each do |p|
-          DummyExtender.sanitize_protocol(p).should be_a String
-        end
-      end
-    end
-  end
 end

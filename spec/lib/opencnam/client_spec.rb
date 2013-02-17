@@ -2,15 +2,10 @@ require 'spec_helper'
 
 describe Opencnam::Client do
   let(:client) { Opencnam::Client.new }
-  before(:each) { client.api_base_protocol = 'http' }
 
   context 'initialization' do
-    it 'should set @api_base' do
-      client.api_base.should eq 'api.opencnam.com'
-    end
-
-    it 'should set @api_base_protocol to "http"' do
-      client.api_base_protocol.should eq 'http'
+    it 'should set @use_ssl to false' do
+      client.use_ssl?.should be_false
     end
 
     it 'should set @account_sid to nil' do
@@ -22,13 +17,21 @@ describe Opencnam::Client do
     end
   end
 
-  describe '#api_base_protocol=' do
-    it 'should set @api_base_protocol' do
-      protocol = 'https'
+  describe '#use_ssl?' do
+    context 'when @use_ssl is true' do
+      before(:each) { client.use_ssl = true }
 
-      expect { client.api_base_protocol = protocol }.to change {
-        client.api_base_protocol
-      }.from('http').to(protocol)
+      it 'should return true' do
+        client.use_ssl?.should be_true
+      end
+    end
+
+    context 'when @use_ssl is false' do
+      before(:each) { client.use_ssl = false }
+
+      it 'should return false' do
+        client.use_ssl?.should be_false
+      end
     end
   end
 
@@ -41,7 +44,7 @@ describe Opencnam::Client do
 
     context 'when using https' do
       it 'should return a hash' do
-        client.api_base_protocol = 'https'
+        client.use_ssl = true
         client.phone('+16502530000').should be_a Hash
       end
     end

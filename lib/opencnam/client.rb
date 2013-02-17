@@ -2,21 +2,20 @@ require 'opencnam/util'
 
 module Opencnam
   class Client
+    API_HOST = 'api.opencnam.com'
     extend Util
 
-    attr_reader :api_base, :api_base_protocol
+    attr_writer :use_ssl
     attr_accessor :account_sid, :auth_token
 
     def initialize
-      @api_base = 'api.opencnam.com'
-      @api_base_protocol = 'http'
       @account_sid = nil
       @auth_token = nil
+      @use_ssl = false
     end
 
-    # Change the default protocol of this Client instance.
-    def api_base_protocol=(protocol)
-      @api_base_protocol = Opencnam::Client.sanitize_protocol(protocol)
+    def use_ssl?
+      @use_ssl
     end
 
     # Look up a phone number and return the caller's name.
@@ -30,9 +29,8 @@ module Opencnam
       query = URI.encode_www_form(query_hash)
 
       # Send request
-      uri = URI.parse("#{self.api_base_protocol}://#{self.api_base}")
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true if self.api_base_protocol == 'https'
+      http = Net::HTTP.new(API_HOST, (use_ssl? ? '443' : '80'))
+      http.use_ssl = true if use_ssl?
 
       res = http.request_get("/v2/phone/#{phone_number.strip}?#{query}")
       Opencnam::Client.process_response(res, name_only)
