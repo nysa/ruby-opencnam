@@ -1,14 +1,30 @@
-module OpenCNAM
+module Opencnam
   module Util
-    def self.clean_phone_number(number)
-      # Drop all characters except integers
-      clean_number = number.to_s
-      clean_number.tr!('^0-9', '')
-      clean_number = clean_number[-10..-1]
+    SUPPORTED_PROTOCOLS = %w(http https)
 
-      raise InvalidPhoneNumberError.new(number) if !clean_number || clean_number.length < 10
+    def process_response(response, name_only)
+      if response.kind_of?(Net::HTTPOK)
+        return { :name => response.body } if name_only
 
-      clean_number
+        # Parse JSON to Hash
+        hash = JSON.parse(response.body, :symbolize_names => true)
+
+        # Convert hash[:created] and hash[:updated] from String to Time
+        hash.merge({
+          :created => DateTime.iso8601(hash[:created]).to_time,
+          :updated => DateTime.iso8601(hash[:updated]).to_time,
+        })
+      else
+        raise OpencnamError.new response.message
+      end
+    end
+
+    # Converts protocol to string, stripped and downcased. Returns protocol
+    # if protocol is supported.
+    def sanitize_protocol(protocol)
+      protocol = protocol.to_s.strip.downcase
+      return protocol if SUPPORTED_PROTOCOLS.include?(protocol)
+      raise ArgumentError.new "Only #{SUPPORTED_PROTOCOLS.join(', ')} allowed"
     end
   end
 end

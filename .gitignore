@@ -1,7 +1,51 @@
+# OS X #
+########
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Ruby #
+########
 *.gem
 *.rbc
-*.sw[a-p]
-.rvmrc
-Gemfile.lock
-Session.vim
+.bundle
+.config
+coverage
+InstalledFiles
+lib/bundler/man
+pkg
+rdoc
+spec/reports
+test/tmp
+test/version_tmp
 tmp
+
+# YARD artifacts
+.yardoc
+_yardoc
+doc/
+
+# IntelliJ #
+############
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Vim #
+#######
+.*.s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+Gemfile.lock
