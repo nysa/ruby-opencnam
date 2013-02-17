@@ -19,39 +19,50 @@ describe Opencnam::Client do
 
   describe '#use_ssl?' do
     context 'when @use_ssl is true' do
-      before(:each) { client.use_ssl = true }
-
       it 'should return true' do
+        client.use_ssl = true
         client.use_ssl?.should be_true
       end
     end
 
     context 'when @use_ssl is false' do
-      before(:each) { client.use_ssl = false }
-
       it 'should return false' do
+        client.use_ssl = false
         client.use_ssl?.should be_false
       end
     end
   end
 
   describe '#phone' do
-    context 'when using http' do
-      it 'should return a string' do
-        client.phone('+16502530000').should be_a String
+    it 'should return a String' do
+      client.phone('+16502530000')
+    end
+
+    context 'when given a bad phone number' do
+      it 'should raise OpencnamError' do
+        expect { client.phone('+abcdefgh') }.to(
+          raise_error Opencnam::OpencnamError
+        )
       end
     end
 
-    context 'when using https' do
-      it 'should return a string' do
-        client.use_ssl = true
-        client.phone('+16502530000').should be_a String
+    context 'when given :format => :text' do
+      it 'should return a String' do
+        client.phone('+16502530000', :format => :text).should be_a String
       end
     end
 
-    context 'when given option :format => "json"' do
-      it 'should return a hash' do
-        client.phone('+16502530000', :format => 'json').should be_a Hash
+    context 'when given :format => :json' do
+      it 'should return a Hash' do
+        client.phone('+16502530000', :format => :json).should be_a Hash
+      end
+    end
+
+    context 'when given an unsupported :format' do
+      it 'should raise ArgumentError' do
+        expect { client.phone('+16502530000', :format => :xml) }.to(
+          raise_error ArgumentError
+        )
       end
     end
   end
