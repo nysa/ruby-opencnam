@@ -37,21 +37,21 @@ describe Opencnam::Client do
 
   describe '#phone' do
     context 'when using http' do
-      it 'should return a hash' do
-        client.phone('+16502530000').should be_a Hash
+      it 'should return a string' do
+        client.phone('+16502530000').should be_a String
       end
     end
 
     context 'when using https' do
-      it 'should return a hash' do
+      it 'should return a string' do
         client.use_ssl = true
-        client.phone('+16502530000').should be_a Hash
+        client.phone('+16502530000').should be_a String
       end
     end
 
-    context 'when given name_only = true' do
+    context 'when given option :format => "json"' do
       it 'should return a hash' do
-        client.phone('+16502530000').should be_a Hash
+        client.phone('+16502530000', :format => 'json').should be_a Hash
       end
     end
   end

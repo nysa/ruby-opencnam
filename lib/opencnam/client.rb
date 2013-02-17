@@ -19,13 +19,14 @@ module Opencnam
     end
 
     # Look up a phone number and return the caller's name.
-    def phone(phone_number, name_only = false)
+    def phone(phone_number, opts = {})
       # Build query string
       query_hash = {
-        :account_sid => self.account_sid,
-        :auth_token => self.auth_token,
-      }
-      query_hash[:format] = 'json' unless name_only
+        :account_sid => account_sid,
+        :auth_token => auth_token,
+        :format => 'text',
+      }.merge(opts)
+      query_hash[:format] = sanitize_and_convert_format(query_hash[:format])
       query = URI.encode_www_form(query_hash)
 
       # Send request
@@ -33,7 +34,7 @@ module Opencnam
       http.use_ssl = true if use_ssl?
 
       res = http.request_get("/v2/phone/#{phone_number.strip}?#{query}")
-      process_response(res, name_only)
+      process_response(res, query_hash[:format])
     end
   end
 end
