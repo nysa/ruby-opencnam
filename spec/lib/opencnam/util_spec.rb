@@ -5,7 +5,7 @@ class DummyExtender
 end
 
 describe Opencnam::Util do
-  describe 'process_response' do
+  describe '#process_response' do
     context 'when response is OK' do
       let(:ok) { OpencnamOkResponse.new }
 
@@ -37,6 +37,27 @@ describe Opencnam::Util do
       it 'should raise an error' do
         expect { DummyExtender.send(:process_response, bad, false) }.to(
           raise_error Opencnam::OpencnamError)
+      end
+    end
+  end
+
+  describe '#parse_response_date' do
+    context 'when given valid ISO date string' do
+      it 'should return a Time object' do
+        date_string = '2013-02-17T01:34:22.501327'
+        DummyExtender.send(:parse_response_date, date_string).should be_a Time
+      end
+    end
+
+    context 'when given invalid ISO date string' do
+      it 'should return nil' do
+        DummyExtender.send(:parse_response_date, 'abcd').should be_nil
+      end
+    end
+
+    context 'when given nil' do
+      it 'should return nil' do
+        DummyExtender.send(:parse_response_date, nil).should be_nil
       end
     end
   end
