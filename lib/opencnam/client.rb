@@ -3,7 +3,7 @@ require 'opencnam/util'
 module Opencnam
   class Client
     API_HOST = 'api.opencnam.com'
-    extend Util
+    include Util
 
     attr_writer :use_ssl
     attr_accessor :account_sid, :auth_token
@@ -33,7 +33,7 @@ module Opencnam
       http.use_ssl = true if use_ssl?
 
       res = http.request_get("/v2/phone/#{phone_number.strip}?#{query}")
-      Opencnam::Client.process_response(res, name_only)
+      process_response(res, name_only)
     end
   end
 end
