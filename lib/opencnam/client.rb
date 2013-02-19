@@ -1,9 +1,9 @@
-require 'opencnam/util'
+require 'opencnam/parsers'
 
 module Opencnam
   class Client
     API_HOST = 'api.opencnam.com'
-    include Util
+    include Parsers
 
     attr_writer :use_ssl
     attr_accessor :account_sid, :auth_token

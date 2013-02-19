@@ -1,5 +1,5 @@
 module Opencnam
-  module Util
+  module Parsers
     private
 
     def parse_iso_date_string(date_string)

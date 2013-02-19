@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 class DummyExtender
-  extend Opencnam::Util
+  extend Opencnam::Parsers
 end
 
-describe Opencnam::Util do
+describe Opencnam::Parsers do
   describe '#parse_iso_date_string' do
     context 'when given a valid ISO date string' do
       it 'should return a Time object' do

@@ -4,4 +4,4 @@ require 'net/http'
 
 require 'opencnam/client'
 require 'opencnam/opencnam_error'
-require 'opencnam/util'
+require 'opencnam/parsers'
