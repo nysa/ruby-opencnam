@@ -20,11 +20,11 @@ module Opencnam #:nodoc:
 
       # Convert hash[:created] and hash[:updated] to Time objects
       if hash[:created]
-        hash.merge({ :created => parse_iso_date_string(hash[:created]) })
+        hash.merge!({ :created => parse_iso_date_string(hash[:created]) })
       end
 
       if hash[:updated]
-        hash.merge({ :updated => parse_iso_date_string(hash[:updated]) })
+        hash.merge!({ :updated => parse_iso_date_string(hash[:updated]) })
       end
 
       hash
