@@ -16,10 +16,14 @@ module Opencnam #:nodoc:
     attr_writer :use_ssl
     attr_accessor :account_sid, :auth_token
 
-    def initialize
-      @account_sid = nil
-      @auth_token = nil
-      @use_ssl = false
+    # @param [Hash] options
+    # @option options [String] :account_sid (nil)
+    # @option options [String] :auth_token (nil)
+    # @option options [Boolean] :use_ssl (false)
+    def initialize(options = {})
+      @account_sid = options[:account_sid].strip if options[:account_sid]
+      @auth_token = options[:auth_token].strip if options[:auth_token]
+      @use_ssl = options[:use_ssl]
     end
 
     # Returns true if this client instance is configured to use SSL by
@@ -38,8 +42,8 @@ module Opencnam #:nodoc:
     #   account_sid
     # @option options [String] :auth_token Specify a different OpenCNAM
     #   auth_token
-    # @option options [String, Symbol] :format The format to retrieve, can be
-    #   :text or :json
+    # @option options [String, Symbol] :format (:text) The format to retrieve,
+    #   can be :text or :json
     # @return [String, Hash] the phone number owner's name if :format is
     #   :string, or a Hash of additional fields from OpenCNAM if :format
     #   is :json (:created, :updated, :name, :price, :uri, and

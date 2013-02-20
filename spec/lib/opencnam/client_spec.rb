@@ -3,17 +3,40 @@ require 'spec_helper'
 describe Opencnam::Client do
   let(:client) { Opencnam::Client.new }
 
-  context 'initialization' do
-    it 'should set @use_ssl to false' do
-      client.use_ssl?.should be_false
+  describe '#initialize' do
+    context 'when options is not given' do
+      it 'should set @use_ssl to false' do
+        client.use_ssl?.should be_false
+      end
+
+      it 'should set @account_sid to nil' do
+        client.account_sid.should be_nil
+      end
+
+      it 'should set @auth_token to nil' do
+        client.auth_token.should be_nil
+      end
     end
 
-    it 'should set @account_sid to nil' do
-      client.account_sid.should be_nil
-    end
+    context 'when options is given' do
+      let(:options) { {
+        :account_sid => 'example-account-sid ',
+        :auth_token => 'example-auth-token',
+        :use_ssl => true,
+      } }
+      let(:client) { Opencnam::Client.new(options) }
 
-    it 'should set @auth_token to nil' do
-      client.auth_token.should be_nil
+      it 'should set @use_ssl' do
+        client.use_ssl?.should be_true
+      end
+
+      it 'should set @account_sid' do
+        client.account_sid.should_not be_nil
+      end
+
+      it 'should set @auth_token' do
+        client.auth_token.should_not be_nil
+      end
     end
   end
 
