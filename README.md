@@ -13,7 +13,7 @@ Install from [RubyGems](http://rubygems.org/):
 
 Or include it in your `Gemfile` and install via Bundler's `bundle install`:
 
-    gem 'opencnam', :git => 'git://github.com/nysa/ruby-opencnam.git'
+    gem 'opencnam'
 
 ## Usage
 
