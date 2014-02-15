@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.files       = Dir['LICENSE', 'README.md', 'lib/**/*.rb']
   s.test_files  = Dir.glob('spec/**/*')
 
-  s.add_dependency 'json', '~> 1.7.7'
+  s.add_dependency 'json', '~> 1.7'
   s.add_development_dependency 'rake'
-  s.add_development_dependency 'rspec', '~> 2.12.0'
+  s.add_development_dependency 'rspec', '~> 2.14'
 end
