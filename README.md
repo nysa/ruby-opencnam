@@ -2,7 +2,7 @@
 
 A Ruby wrapper for the [OpenCNAM](http://www.opencnam.com/) API service.
 
-ruby-opencnam v1.0.0 only supports OpenCNAM API v2. For more information see:
+ruby-opencnam v1.0.1 only supports OpenCNAM API v2. For more information see:
 https://www.opencnam.com/docs/v2
 
 ## Installation
@@ -73,6 +73,7 @@ The name returned from OpenCNAM varies. Sometimes not providing a name at all an
 
 ## License
 
-Copyright &copy; 2013 Nysa Vann <<nysa@nysavann.com>>
+Copyright &copy; 2013-2014 Nysa Vann <<nysa@nysavann.com>>
 
 ruby-opencnam is distributed under an MIT-style license. See LICENSE for details.
+

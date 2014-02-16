@@ -1,3 +1,3 @@
 module Opencnam #:nodoc:
-  VERSION = '1.0.0' #:nodoc:
+  VERSION = '1.0.1' #:nodoc:
 end
