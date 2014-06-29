@@ -9,27 +9,33 @@ https://www.opencnam.com/docs/v2
 
 Install from [RubyGems](http://rubygems.org/):
 
-    $ gem install opencnam
+```
+$ gem install opencnam
+```
 
 Or include it in your `Gemfile` and install via Bundler's `bundle install`:
 
-    gem 'opencnam'
+```
+gem 'opencnam'
+```
 
 ## Usage
 
 Simplest example:
 
-    require 'opencnam'
+```ruby
+require 'opencnam'
 
-    client = Opencnam::Client.new
+client = Opencnam::Client.new
 
-    client.phone('7731234567')
-    # => 'VANN,NYSA'
+client.phone('7731234567')
+# => 'VANN,NYSA'
 
-    client.phone('7731234567', :format => :json)
-    # => {:number=>"+17731234567", :uri=>"/v2/phone/%2B17731234567",
-    #     :price=>0, :name=>"VANN,NYSA", :created=>2012-10-05 19:36:33 -0500,
-    #     :updated=>2012-10-05 19:36:33 -0500}
+client.phone('7731234567', :format => :json)
+# => {:number=>"+17731234567", :uri=>"/v2/phone/%2B17731234567",
+#     :price=>0, :name=>"VANN,NYSA", :created=>2012-10-05 19:36:33 -0500,
+#     :updated=>2012-10-05 19:36:33 -0500}
+```
 
 ## Notes
 
@@ -39,30 +45,36 @@ Sending more than 60 requests within an hour without specifying a `account_sid` 
 ### Professional Plan
 You can configure `ruby-opencnam` to use your `account_sid` and `auth_token`:
 
-    client = Opencnam::Client.new(
-      :account_sid => 'your_account_sid',
-      :auth_token => 'your_auth_token',
-    )
+```ruby
+client = Opencnam::Client.new(
+  :account_sid => 'your_account_sid',
+  :auth_token => 'your_auth_token',
+)
+```
 
 or
 
-    client = Opencnam::Client.new
-    client.account_sid = 'your_account_sid'
-    client.auth_token = 'your_auth_token'
+```ruby
+client = Opencnam::Client.new
+client.account_sid = 'your_account_sid'
+client.auth_token = 'your_auth_token'
+```
 
 ### SSL
 You can send configure `ruby-opencnam` to send requests over SSL:
 
-    client = Opencnam::Client.new(:use_ssl => true)
+```ruby
+client = Opencnam::Client.new(:use_ssl => true)
 
-    # or
+# or
 
-    client = Opencnam::Client.new
-    client.use_ssl = true
+client = Opencnam::Client.new
+client.use_ssl = true
 
-    # Check if SSL is set
-    client.use_ssl?
-    # => true
+# Check if SSL is set
+client.use_ssl?
+# => true
+```
 
 ### Opencnam::OpencnamError
 Calling the `phone` method can raise an `Opencnam::OpencnamError` for a variety of reasons (not found, bad request, payment required, etc.). For a full list of things that can go wrong, see:
